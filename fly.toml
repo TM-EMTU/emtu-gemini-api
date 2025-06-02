@@ -1,0 +1,38 @@
+app = "emtu-gemini-api"
+
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "5001"
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  internal_port = 5001
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [services.concurrency]
+    type = "connections"
+    soft_limit = 50
+    hard_limit = 100
+
+  [[services.health_checks]]
+    interval = "10s"
+    timeout = "5s"
+    grace_period = "10s"
+    method = "get"
+    path = "/"
+    protocol = "http"
