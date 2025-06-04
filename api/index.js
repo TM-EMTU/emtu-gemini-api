@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import { createServer } from 'http';
+import { parse } from 'url';
+
 dotenv.config();
 
 const app = express();
@@ -134,4 +137,4 @@ app.post('/api/gemini-generic', async (req, res) => {
 const PORT = 5001;
 app.listen(PORT, () => console.log(`Gemini proxy running on port ${PORT}`));
 
-module.exports = app;
+export default app;
